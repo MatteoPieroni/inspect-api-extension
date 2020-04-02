@@ -1,0 +1,58 @@
+table {
+  position: relative;
+  margin: 0 auto;
+  border-collapse: collapse;
+  width: 100%;
+  background: #fff;
+}
+
+table td,
+table th {
+  text-align: left;
+}
+table td,
+table th {
+  padding: 8px;
+}
+
+thead tr {
+  height: 60px;
+  background: #36304a;
+}
+
+thead td {
+  font-size: 18px;
+  line-height: 1.2;
+  vertical-align: middle;
+  color: #fff;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+thead td svg {
+  margin-left: 0.5rem;
+}
+
+thead td span {
+  margin-left: 2rem;
+}
+
+thead td svg + span {
+  margin-left: 0.5rem;
+}
+
+table tbody tr {
+  height: 50px;
+}
+
+tbody tr {
+  font-family: sans-serif;
+  font-size: 15px;
+  color: #36304a;
+  line-height: 1.2;
+  font-weight: unset;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f5f5f5;
+}

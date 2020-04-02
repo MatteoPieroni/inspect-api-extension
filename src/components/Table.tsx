@@ -2,30 +2,26 @@ import React from 'react';
 
 import { Data } from '../types';
 import TableHeader from './TableHeader';
-import { useTableData } from '../hooks/useTableData';
-import TableController from './TableController';
+import './Table.scss';
 
 interface TableProps {
+  headers: (keyof Data)[];
   data: Data[];
+  activeFilter: keyof Data | '';
+  orderByKey: (header: keyof Data, isAsc?: boolean) => void;
 }
 
-export const Table: React.FC<TableProps> = ({ data }) => {
-  const { headerKeys, data: processedData, orderByKey, reset, activeFilter, findDuplicates, search } = useTableData(data);
-  const headers: (keyof Data)[] = headerKeys.filter((element, index) => element !== 'id' && headerKeys.indexOf(element) === index);
-
+export const Table: React.FC<TableProps> = ({ headers, activeFilter, data, orderByKey }) => {
   return (
     <div>
-      <TableController onReset={reset} filterDuplicates={findDuplicates} headers={headers} search={search} dataToDownload={processedData} />
       <table>
-        {headers && (
-          <thead>
-            <tr>
-              {headers.map(header => <TableHeader key={header} header={header} onClick={orderByKey} activeFilter={activeFilter} />)}
-            </tr>
-          </thead>
-        )}
+        <thead>
+          <tr>
+            {headers.map(header => <TableHeader key={header} header={header} onClick={orderByKey} activeFilter={activeFilter} />)}
+          </tr>
+        </thead>
         <tbody>
-          {processedData.map(row => (
+          {data.map(row => (
             <tr key={row.id}>
               {Object.values(row).map(value => (
                 value !== row.id && <td key={value}>{value}</td>

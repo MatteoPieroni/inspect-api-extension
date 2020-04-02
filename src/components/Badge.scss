@@ -1,0 +1,25 @@
+@import "../variables.scss";
+
+.badge {
+  display: inline-block;
+  margin-right: 0.5rem;
+  border-radius: 4px;
+  padding: 0.25rem 0.35rem;
+  background: $default;
+  line-height: 1;
+  color: $white-text;
+
+  &.warning {
+    background: $warning;
+    color: $dark-text;
+  }
+
+  &.alert {
+    background: $alert;
+  }
+
+  &.success {
+    background: $success;
+    color: $dark-text;
+  }
+}

@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+
 import { Data } from '../types';
 import { DownloadButton } from './DownloadButton';
 import { Checkbox } from './Checkbox';
 import Button from './Button';
 import { Icons } from './Icons';
+import './Controller.scss';
 
-interface TableControllerProps {
+interface ControllerProps {
   onReset: () => void;
   headers: string[]
   filterDuplicates: (key: keyof Data | undefined) => void;
@@ -13,7 +15,7 @@ interface TableControllerProps {
   dataToDownload?: Data[];
 }
 
-const TableController: React.FC<TableControllerProps> = ({ onReset, filterDuplicates, headers, search, dataToDownload }) => {
+export const Controller: React.FC<ControllerProps> = ({ onReset, filterDuplicates, headers, search, dataToDownload }) => {
   const [selectedValue, setSelectedValue] = useState<boolean>(false);
   const [typedSearch, setTypedSearch] = useState<string>('');
 
@@ -54,5 +56,3 @@ const TableController: React.FC<TableControllerProps> = ({ onReset, filterDuplic
     </div>
   )
 }
-
-export default TableController

@@ -1,0 +1,37 @@
+a.button {
+  text-decoration: none;
+}
+
+button,
+.button {
+  display: block;
+  border: 2px solid #36304a;
+  padding: 0.25rem 0.75rem;
+  background: #36304a;
+  font-size: 1rem;
+  line-height: 1rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+button svg,
+.button svg {
+  margin-right: 0.5rem;
+}
+
+button:hover,
+.button:hover {
+  border: 2px solid #565167;
+  background: #565167;
+  color: #fff;
+}
+
+.button-inverted {
+  border: 2px solid #36304a;
+  background: #fff;
+  color: #36304a;
+}
+
+.button-inverted:hover {
+  border: 2px solid #565167;
+}

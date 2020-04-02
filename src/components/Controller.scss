@@ -1,0 +1,46 @@
+.controller {
+  display: flex;
+  justify-content: stretch;
+  margin-bottom: 0.5rem;
+}
+
+.left {
+  flex-grow: 1;
+}
+
+.right {
+  flex-shrink: 0;
+  padding-top: 0.5rem;
+}
+
+label {
+  display: inline-block;
+  margin-right: 1rem;
+  padding: 0.5rem 0;
+}
+
+label:last-of-type {
+  margin-right: 0;
+}
+
+label input {
+  margin-left: 0.5rem;
+}
+
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.svg-hidden {
+  display: none;
+}
+
+.checkbox svg {
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}

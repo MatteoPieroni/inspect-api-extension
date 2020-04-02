@@ -1,0 +1,16 @@
+.call {
+  margin-bottom: 0.5rem;
+  padding: 0.25rem 0;
+
+  &:nth-child(even) {
+    background: #eaeaea;
+  }
+
+  .body {
+    overflow-wrap: break-word;
+  }
+
+  .footer {
+    margin: 0.5rem 0 0rem 0;
+  }
+}
