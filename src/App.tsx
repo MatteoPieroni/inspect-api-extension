@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useExtension } from './hooks/useExtension';
 import { normaliseData } from './utils/normaliseData';
 import { useExtension } from './hooks/useExtension';
 import { CallsList } from './components/CallsList';
@@ -10,6 +9,9 @@ function App() {
 
   return (
     <div className="App">
+      <header>
+        <h1>Inspect api calls</h1>
+      </header>
       <main>
         {tableData && <CallsList data={tableData} isTable={false} />}
         {/* {error} */}
