@@ -6,8 +6,10 @@
   border-radius: 4px;
   padding: 0.25rem 0.35rem;
   background: $default;
+  font-size: 0.85rem;
   line-height: 1;
   color: $white-text;
+  text-transform: uppercase;
 
   &.warning {
     background: $warning;
