@@ -2,19 +2,25 @@ import { useMemo, useReducer, useEffect } from "react";
 
 import { Data } from "../types";
 import {
+  OrderByKey,
+  Search,
+  FindDuplicates,
+  Reset,
+} from "./utils/TableDataTypes";
+import {
   initState,
   tableDataReducer,
   TableData,
   ORDER,
-  RESET,
+  RESET_ORDER,
   SEARCH,
   FILTER_DUPLICATES,
-  REFRESH_DATA
+  REFRESH_DATA,
 } from "./utils/tableReducers";
 
-export const useTableData: (
-  originalData: Data[]
-) => TableData = originalData => {
+export const useTableData: (originalData: Data[]) => TableData = (
+  originalData
+) => {
   const [state, dispatch] = useReducer(
     tableDataReducer,
     originalData,
@@ -34,20 +40,20 @@ export const useTableData: (
     [originalData]
   );
 
-  const orderByKey = (key: keyof Data, isAsc: boolean = true) => {
+  const orderByKey: OrderByKey = (key, isAsc = true) => {
     dispatch({ type: ORDER, payload: { key, isAsc } });
   };
 
-  const findDuplicates = (key: keyof Data | undefined) => {
+  const findDuplicates: FindDuplicates = (key) => {
     dispatch({ type: FILTER_DUPLICATES, payload: { key, data: originalData } });
   };
 
-  const search = (keyword: string) => {
+  const search: Search = (keyword) => {
     dispatch({ type: SEARCH, payload: { keyword, data: originalData } });
   };
 
-  const reset = () => {
-    dispatch({ type: RESET, payload: { data: originalData } });
+  const reset: Reset = () => {
+    dispatch({ type: RESET_ORDER, payload: { data: originalData } });
   };
 
   return {
@@ -57,6 +63,6 @@ export const useTableData: (
     orderByKey,
     reset,
     findDuplicates,
-    search
+    search,
   };
 };

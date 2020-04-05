@@ -6,16 +6,23 @@ import { Checkbox } from './Checkbox';
 import Button from './Button';
 import { Icons } from './Icons';
 import './Controller.scss';
+import OrderController from './OrderController';
+import { FindDuplicates, Search, OrderByKey } from '../hooks/utils/TableDataTypes';
+import { ActiveFilter, HeaderKeys } from '../hooks/utils/tableReducers';
 
 interface ControllerProps {
   onReset: () => void;
-  headers: string[]
-  filterDuplicates: (key: keyof Data | undefined) => void;
-  search: (keyword: string) => void;
+  headers: HeaderKeys;
+  filterDuplicates: FindDuplicates;
+  search: Search;
   dataToDownload?: Data[];
+  activeFilter: ActiveFilter;
+  onOrder: OrderByKey;
 }
 
-export const Controller: React.FC<ControllerProps> = ({ onReset, filterDuplicates, headers, search, dataToDownload }) => {
+export const Controller: React.FC<ControllerProps> = ({
+  onReset, filterDuplicates, headers, search, dataToDownload, activeFilter, onOrder,
+}) => {
   const [selectedValue, setSelectedValue] = useState<boolean>(false);
   const [typedSearch, setTypedSearch] = useState<string>('');
 
@@ -29,21 +36,16 @@ export const Controller: React.FC<ControllerProps> = ({ onReset, filterDuplicate
     search(e?.target.value);
   }
 
-  const handleReset = () => {
-    setSelectedValue(false);
-    setTypedSearch('');
-    onReset();
-  }
-
   return (
     <div className="controller">
       <div className="left">
         <label>
           Search
-        <input value={typedSearch} onChange={handleType} />
+          <input value={typedSearch} onChange={handleType} />
+          {typedSearch && <Button icon={<Icons.Reset />} isInverted onClick={() => setTypedSearch('')}>Reset</Button>}
         </label>
         <Checkbox label="Show only duplicate calls (url)" isChecked={selectedValue} onToggle={handleChange} />
-        <Button icon={<Icons.Reset />} onClick={handleReset} isInverted>Reset</Button>
+        <OrderController headers={headers} activeFilter={activeFilter} onChange={onOrder} handleReset={onReset} />
       </div>
       {dataToDownload && (
         <div className="right">

@@ -1,31 +1,35 @@
 import { innerSort } from "../../utils/innerSort";
 import { Data } from "../../types";
+import { OrderByKey, Reset, FindDuplicates, Search } from "./TableDataTypes";
 
-export const RESET = "RESET";
+export const RESET_ORDER = "RESET_ORDER";
 export const ORDER = "ORDER";
 export const FILTER_DUPLICATES = "FILTER_DUPLICATES";
 export const SEARCH = "SEARCH";
 export const REFRESH_DATA = "REFRESH_DATA";
 
+export type HeaderKeys = (keyof Data)[];
+export type ActiveFilter = keyof Data | "";
+
 export interface TableData {
-  headerKeys: (keyof Data)[];
+  headerKeys: HeaderKeys;
   data: Data[];
-  orderByKey: (key: keyof Data, isAsc?: boolean) => void;
-  reset: () => void;
-  activeFilter: keyof Data | "";
-  findDuplicates: (key: keyof Data | undefined) => void;
-  search: (keyword: string) => void;
+  orderByKey: OrderByKey;
+  reset: Reset;
+  activeFilter: ActiveFilter;
+  findDuplicates: FindDuplicates;
+  search: Search;
 }
 
 interface TableState {
   data: Data[];
-  activeFilter: keyof Data | "";
+  activeFilter: ActiveFilter;
   activeOrderIsAsc: boolean;
-  activeDuplicateFilter: keyof Data | "";
+  activeDuplicateFilter: ActiveFilter;
 }
 
 interface ResetAction {
-  type: typeof RESET;
+  type: typeof RESET_ORDER;
   payload: { data: Data[] };
 }
 interface OrderAction {
@@ -52,12 +56,12 @@ export type ReducerAction =
   | SearchAction
   | RefreshAction;
 
-export const initState: (data: Data[]) => TableState = initialData => {
+export const initState: (data: Data[]) => TableState = (initialData) => {
   return {
     data: initialData,
     activeFilter: "",
     activeOrderIsAsc: true,
-    activeDuplicateFilter: ""
+    activeDuplicateFilter: "",
   };
 };
 
@@ -72,7 +76,7 @@ const filterDuplicates: (data: Data[], key: keyof Data) => Data[] = (
   data,
   key
 ) => {
-  const keyValues: string[] = data.map(element => element[key]);
+  const keyValues: string[] = data.map((element) => element[key]);
 
   return data.filter((element, index) => {
     if (keyValues.indexOf(element[key], index + 1) > -1) {
@@ -113,7 +117,7 @@ export const tableDataReducer: React.Reducer<TableState, ReducerAction> = (
 
       return {
         ...state,
-        data: finalData || action.payload.data
+        data: finalData || action.payload.data,
       };
     case ORDER:
       return {
@@ -124,14 +128,14 @@ export const tableDataReducer: React.Reducer<TableState, ReducerAction> = (
           action.payload.isAsc
         ),
         activeFilter: action.payload.key,
-        activeOrderIsAsc: action.payload.isAsc
+        activeOrderIsAsc: action.payload.isAsc,
       };
     case FILTER_DUPLICATES:
       if (!action.payload.key) {
         return {
           ...state,
           activeDuplicateFilter: "",
-          data: action.payload.data
+          data: action.payload.data,
         };
       }
 
@@ -148,24 +152,24 @@ export const tableDataReducer: React.Reducer<TableState, ReducerAction> = (
             [...duplicatesArray],
             state.activeFilter,
             state.activeOrderIsAsc
-          )
+          ),
         };
       }
 
       return {
         ...state,
         activeDuplicateFilter: action.payload.key,
-        data: duplicatesArray
+        data: duplicatesArray,
       };
     case SEARCH:
       if (!action.payload.keyword) {
         return {
           ...state,
-          data: action.payload.data
+          data: action.payload.data,
         };
       }
 
-      const searchResults = state.data.filter(el =>
+      const searchResults = state.data.filter((el) =>
         el.url.includes(action.payload.keyword)
       );
 
@@ -174,16 +178,28 @@ export const tableDataReducer: React.Reducer<TableState, ReducerAction> = (
           ...state,
           data: [...searchResults].sort((a, b) =>
             innerSort(a, b, state.activeFilter, state.activeOrderIsAsc)
-          )
+          ),
         };
       }
 
       return {
         ...state,
-        data: searchResults
+        data: searchResults,
       };
-    case RESET:
-      return initState(action.payload.data);
+    case RESET_ORDER:
+      if (!state.activeDuplicateFilter) {
+        return initState(action.payload.data);
+      }
+
+      return {
+        ...state,
+        activeFilter: "",
+        activeOrderIsAsc: true,
+        data: filterDuplicates(
+          action.payload.data,
+          state.activeDuplicateFilter
+        ),
+      };
     default:
       return state;
   }

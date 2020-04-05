@@ -17,7 +17,15 @@ export const CallsList: React.FC<CallsListProps> = ({ data, isTable = true }) =>
 
   return (
     <div>
-      <Controller onReset={reset} filterDuplicates={findDuplicates} headers={headers} search={search} dataToDownload={processedData} />
+      <Controller
+        onReset={reset}
+        filterDuplicates={findDuplicates}
+        headers={headers}
+        search={search}
+        dataToDownload={processedData}
+        onOrder={orderByKey}
+        activeFilter={activeFilter}
+      />
       {
         isTable ? (
           <Table headers={headers} data={processedData} activeFilter={activeFilter} orderByKey={orderByKey} />
