@@ -31,9 +31,9 @@ export const Controller: React.FC<ControllerProps> = ({
     filterDuplicates(!selectedValue ? 'url' : undefined)
   }
 
-  const handleType = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleType = (e?: React.ChangeEvent<HTMLInputElement>) => {
     setTypedSearch(e?.target.value || '');
-    search(e?.target.value);
+    search(e?.target.value || '')
   }
 
   return (
@@ -42,7 +42,7 @@ export const Controller: React.FC<ControllerProps> = ({
         <label>
           Search
           <input value={typedSearch} onChange={handleType} />
-          {typedSearch && <Button icon={<Icons.Reset />} isInverted onClick={() => setTypedSearch('')}>Reset</Button>}
+          {typedSearch && <Button icon={<Icons.Reset />} isInverted onClick={handleType}>Reset</Button>}
         </label>
         <Checkbox label="Show only duplicate calls (url)" isChecked={selectedValue} onToggle={handleChange} />
         <OrderController headers={headers} activeFilter={activeFilter} onChange={onOrder} handleReset={onReset} />
