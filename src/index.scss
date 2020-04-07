@@ -44,3 +44,20 @@ h1 {
     "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
 }
+
+.button-icon {
+  border: none;
+  padding: 0;
+  background: none;
+  color: $dark-text;
+
+  &:hover {
+    border: none;
+    background: none;
+    color: $dark-hover;
+  }
+
+  .icon {
+    margin-right: 0;
+  }
+}

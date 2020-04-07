@@ -1,0 +1,17 @@
+.search-input-container {
+  position: relative;
+  display: inline-block;
+
+  input {
+    padding-right: 1.5rem;
+  }
+
+  button {
+    position: absolute;
+    bottom: 0rem;
+    right: 0.25rem;
+  }
+}
+
+.search-reset {
+}

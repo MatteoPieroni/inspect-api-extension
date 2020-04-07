@@ -25,7 +25,7 @@ const OrderController: React.FC<OrderControllerProps> = ({ headers, onChange, ac
   return (
     <div>
       <select value={activeFilter} onChange={(e) => onChange(e.target.value as keyof Data, orderIsAsc)}>
-        <option value="" disabled selected>Order by</option>
+        <option value="" disabled>Order by</option>
         {headers.map(header => <option key={header} value={header}>{header}</option>)}
       </select>
       {activeFilter && (
