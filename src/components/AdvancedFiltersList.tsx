@@ -10,7 +10,7 @@ interface AdvancedFiltersListProps {
 export const AdvancedFiltersList: React.FC<AdvancedFiltersListProps> = ({ filterDuplicates, regex }) => {
   return (
     <div className="advanced-filters-list">
-      <AdvancedFilter label="Show only insecure calls (http)" onChange={(value) => regex(value ? /^https:\/\/qa/g : '')} />
+      <AdvancedFilter label="Show only insecure calls (http)" onChange={(value) => regex(value ? /^http:\/\//g : '')} />
       <AdvancedFilter label="Show only duplicate calls (url)" onChange={(value) => filterDuplicates(value ? 'url' : undefined)} />
     </div>
   )
