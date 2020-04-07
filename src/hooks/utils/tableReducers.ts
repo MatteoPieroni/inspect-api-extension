@@ -83,15 +83,17 @@ const filterDuplicates: (data: Data[], key: keyof Data) => Data[] = (
 
   return data.filter((element, index) => {
     if (keyValues.indexOf(element[key], index + 1) > -1) {
-      return element;
+      return true;
     }
 
     // for the last item compare with previous values
     if (index === data.length - 1) {
       if (keyValues.indexOf(element[key]) !== index) {
-        return element;
+        return true;
       }
     }
+
+    return false;
   });
 };
 
