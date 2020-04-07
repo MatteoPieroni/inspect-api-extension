@@ -1,6 +1,8 @@
 import React from 'react'
 import { Icons } from './Icons'
 
+import "./Button.scss"
+
 interface DownloadButtonProps {
   data: any;
   name?: string;

@@ -1,8 +1,9 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react'
 import { Search as SearchInterface } from '../hooks/utils/TableDataTypes';
-import { Icons } from './Icons';
+import { IconButton } from './IconButton';
 
 import './Search.scss';
+import { Icons } from './Icons';
 
 interface SearchProps {
   onSearch: SearchInterface;
@@ -33,10 +34,7 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
         <div className="search-input-container">
           <input value={typedSearch} onChange={handleChange} />
           {typedSearch && (
-            <button type="button" onClick={handleReset} className="button-icon search-reset">
-              <Icons.Reset />
-              <span className="visually-hidden">Reset</span>
-            </button>
+            <IconButton icon={<Icons.Reset />} className="search-reset" onClick={handleReset} action="search" />
           )}
         </div>
       </label>

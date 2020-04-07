@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 
 import { Data } from '../types';
 import { DownloadButton } from './DownloadButton';
-import { Checkbox } from './Checkbox';
 import './Controller.scss';
-import OrderController from './OrderController';
+import { OrderController } from './OrderController';
 import { FindDuplicates, Search as SearchInterface, OrderByKey } from '../hooks/utils/TableDataTypes';
 import { ActiveFilter, HeaderKeys } from '../hooks/utils/tableReducers';
 import Search from './Search';

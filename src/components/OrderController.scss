@@ -1,0 +1,21 @@
+@import "../variables.scss";
+
+.order-controller {
+  .order-icon,
+  .reset-order-icon {
+    padding: 1px;
+    vertical-align: middle;
+  }
+
+  .order-icon {
+    margin: 0 0.5rem;
+    border: 1px solid #36304a;
+    padding: 0 2px;
+    font-size: 1rem;
+
+    &:hover {
+      background: $default;
+      color: $white-text;
+    }
+  }
+}

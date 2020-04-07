@@ -1,17 +1,17 @@
+@import "../variables.scss";
+
 .search-input-container {
   position: relative;
   display: inline-block;
 
   input {
+    border: 2 px solid $default;
     padding-right: 1.5rem;
   }
 
-  button {
+  .search-reset {
     position: absolute;
     bottom: 0rem;
     right: 0.25rem;
   }
-}
-
-.search-reset {
 }

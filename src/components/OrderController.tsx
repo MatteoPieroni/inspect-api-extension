@@ -3,7 +3,9 @@ import { Data } from '../types'
 import { Icons } from './Icons'
 import { HeaderKeys, ActiveFilter } from '../hooks/utils/tableReducers';
 import { OrderByKey, Reset } from '../hooks/utils/TableDataTypes';
-import Button from './Button';
+import { IconButton } from './IconButton';
+
+import './OrderController.scss'
 
 interface OrderControllerProps {
   headers: HeaderKeys;
@@ -12,7 +14,7 @@ interface OrderControllerProps {
   handleReset: Reset;
 }
 
-const OrderController: React.FC<OrderControllerProps> = ({ headers, onChange, activeFilter, handleReset }) => {
+export const OrderController: React.FC<OrderControllerProps> = ({ headers, onChange, activeFilter, handleReset }) => {
   const [orderIsAsc, setOrderIsAsc] = useState<boolean>(false);
 
   const handleClick = () => {
@@ -23,19 +25,25 @@ const OrderController: React.FC<OrderControllerProps> = ({ headers, onChange, ac
   }
 
   return (
-    <div>
+    <div className="order-controller">
       <select value={activeFilter} onChange={(e) => onChange(e.target.value as keyof Data, orderIsAsc)}>
         <option value="" disabled>Order by</option>
         {headers.map(header => <option key={header} value={header}>{header}</option>)}
       </select>
       {activeFilter && (
-        <button onClick={handleClick}>
-          {orderIsAsc ? <Icons.MoveUp /> : <Icons.MoveDown />}
-        </button>
+        <IconButton
+          icon={orderIsAsc ? <Icons.MoveUp /> : <Icons.MoveDown />}
+          onClick={handleClick}
+          action={orderIsAsc ? 'Set ascending order' : 'Set descending order'}
+          className="order-icon"
+        />
       )}
-      <Button icon={<Icons.Reset />} onClick={handleReset} isInverted>Reset</Button>
+      {activeFilter && <IconButton
+        icon={<Icons.Reset />}
+        onClick={handleReset}
+        action="Reset order"
+        className="reset-order-icon"
+      />}
     </div>
   )
 }
-
-export default OrderController
