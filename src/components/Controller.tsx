@@ -7,7 +7,7 @@ import { OrderController } from './OrderController';
 import { FindDuplicates, Search as SearchInterface, OrderByKey } from '../hooks/utils/TableDataTypes';
 import { ActiveFilter, HeaderKeys } from '../hooks/utils/tableReducers';
 import Search from './Search';
-import DuplicatesFilter from './DuplicatesFilter';
+import { AdvancedFiltersList } from './AdvancedFiltersList';
 
 interface ControllerProps {
   onReset: () => void;
@@ -27,7 +27,7 @@ export const Controller: React.FC<ControllerProps> = ({
     <div className="controller">
       <div className="left">
         <Search onSearch={search} />
-        <DuplicatesFilter filterDuplicates={filterDuplicates} />
+        <AdvancedFiltersList filterDuplicates={filterDuplicates} />
         <OrderController headers={headers} activeFilter={activeFilter} onChange={onOrder} handleReset={onReset} />
       </div>
       {dataToDownload && (

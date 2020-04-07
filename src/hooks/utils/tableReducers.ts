@@ -115,7 +115,6 @@ const dataFlow: (state: TableState, data?: Data[]) => Data[] = (
 
   // search
   if (activeSearch) {
-    console.log("apply search", finalData);
     finalData = search(finalData, activeSearch);
   }
 
@@ -161,8 +160,6 @@ export const tableDataReducer: React.Reducer<TableState, ReducerAction> = (
     case FILTER_DUPLICATES:
       let duplicateState = state;
 
-      console.log(duplicateState);
-
       if (!action.payload.key) {
         duplicateState = {
           ...duplicateState,
@@ -180,6 +177,7 @@ export const tableDataReducer: React.Reducer<TableState, ReducerAction> = (
         ...duplicateState,
         data: dataFlow(duplicateState, action.payload.data),
       };
+
     case SEARCH:
       let searchState = state;
 
@@ -200,6 +198,7 @@ export const tableDataReducer: React.Reducer<TableState, ReducerAction> = (
         ...searchState,
         data: dataFlow(searchState, action.payload.data),
       };
+
     case RESET_ORDER:
       // no duplicateFilter && no activeSearch
       if (!state.activeDuplicateFilter && !state.activeSearch) {
@@ -216,6 +215,7 @@ export const tableDataReducer: React.Reducer<TableState, ReducerAction> = (
         ...resetOrderState,
         data: dataFlow(resetOrderState, action.payload.data),
       };
+
     default:
       return state;
   }
