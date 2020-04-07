@@ -12,20 +12,18 @@ interface CallsListProps {
 }
 
 export const CallsList: React.FC<CallsListProps> = ({ data, isTable = true }) => {
-  const { headerKeys, data: processedData, orderByKey, reset, activeFilter, findDuplicates, search, regex } = useTableData(data);
+  const { headerKeys, data: processedData, orderByKey, reset, activeFilter, ...rest } = useTableData(data);
   const headers: (keyof Data)[] = headerKeys.filter((element, index) => element !== 'id' && headerKeys.indexOf(element) === index);
 
   return (
     <div>
       <Controller
         onReset={reset}
-        filterDuplicates={findDuplicates}
         headers={headers}
-        search={search}
         dataToDownload={processedData}
-        onOrder={orderByKey}
+        orderByKey={orderByKey}
         activeFilter={activeFilter}
-        regex={regex}
+        {...rest}
       />
       {
         isTable ? (

@@ -12,24 +12,24 @@ import { AdvancedFiltersList } from './AdvancedFiltersList';
 interface ControllerProps {
   onReset: () => void;
   headers: HeaderKeys;
-  filterDuplicates: FindDuplicates;
+  findDuplicates: FindDuplicates;
   search: SearchInterface;
   dataToDownload?: Data[];
   activeFilter: ActiveFilter;
-  onOrder: OrderByKey;
+  orderByKey: OrderByKey;
   regex: Regex;
 }
 
 export const Controller: React.FC<ControllerProps> = ({
-  onReset, filterDuplicates, headers, search, dataToDownload, activeFilter, onOrder, regex,
+  onReset, findDuplicates, headers, search, dataToDownload, activeFilter, orderByKey, regex,
 }) => {
 
   return (
     <div className="controller">
       <div className="left">
         <Search onSearch={search} />
-        <AdvancedFiltersList filterDuplicates={filterDuplicates} regex={regex} />
-        <OrderController headers={headers} activeFilter={activeFilter} onChange={onOrder} handleReset={onReset} />
+        <AdvancedFiltersList filterDuplicates={findDuplicates} regex={regex} />
+        <OrderController headers={headers} activeFilter={activeFilter} onChange={orderByKey} handleReset={onReset} />
       </div>
       {dataToDownload && (
         <div className="right">
