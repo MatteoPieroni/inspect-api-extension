@@ -12,7 +12,7 @@ interface CallsListProps {
 }
 
 export const CallsList: React.FC<CallsListProps> = ({ data, isTable = true }) => {
-  const { headerKeys, data: processedData, orderByKey, reset, activeFilter, findDuplicates, search } = useTableData(data);
+  const { headerKeys, data: processedData, orderByKey, reset, activeFilter, findDuplicates, search, regex } = useTableData(data);
   const headers: (keyof Data)[] = headerKeys.filter((element, index) => element !== 'id' && headerKeys.indexOf(element) === index);
 
   return (
@@ -25,6 +25,7 @@ export const CallsList: React.FC<CallsListProps> = ({ data, isTable = true }) =>
         dataToDownload={processedData}
         onOrder={orderByKey}
         activeFilter={activeFilter}
+        regex={regex}
       />
       {
         isTable ? (

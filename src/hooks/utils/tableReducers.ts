@@ -1,16 +1,24 @@
 import { innerSort } from "../../utils/innerSort";
 import { Data } from "../../types";
-import { OrderByKey, Reset, FindDuplicates, Search } from "./TableDataTypes";
+import {
+  OrderByKey,
+  Reset,
+  FindDuplicates,
+  Search,
+  Regex,
+} from "./TableDataTypes";
 
 export const RESET_ORDER = "RESET_ORDER";
 export const ORDER = "ORDER";
 export const FILTER_DUPLICATES = "FILTER_DUPLICATES";
 export const SEARCH = "SEARCH";
+export const REGEX = "REGEX";
 export const REFRESH_DATA = "REFRESH_DATA";
 
 export type HeaderKeys = (keyof Data)[];
 export type ActiveFilter = keyof Data | "";
 export type ActiveSearch = string;
+export type ActiveRegex = RegExp | "";
 
 export interface TableData {
   headerKeys: HeaderKeys;
@@ -20,6 +28,7 @@ export interface TableData {
   activeFilter: ActiveFilter;
   findDuplicates: FindDuplicates;
   search: Search;
+  regex: Regex;
 }
 
 interface TableState {
@@ -28,6 +37,7 @@ interface TableState {
   activeOrderIsAsc: boolean;
   activeDuplicateFilter: ActiveFilter;
   activeSearch: ActiveSearch;
+  activeRegex: ActiveRegex;
 }
 
 interface ResetAction {
@@ -46,6 +56,10 @@ interface SearchAction {
   type: typeof SEARCH;
   payload: { keyword: string; data: Data[] };
 }
+interface RegexAction {
+  type: typeof REGEX;
+  payload: { pattern: RegExp | ""; data: Data[] };
+}
 interface RefreshAction {
   type: typeof REFRESH_DATA;
   payload: { data: Data[] };
@@ -56,6 +70,7 @@ export type ReducerAction =
   | OrderAction
   | FilterDuplicatesAction
   | SearchAction
+  | RegexAction
   | RefreshAction;
 
 export const initState: (data: Data[]) => TableState = (initialData) => {
@@ -65,6 +80,7 @@ export const initState: (data: Data[]) => TableState = (initialData) => {
     activeOrderIsAsc: true,
     activeDuplicateFilter: "",
     activeSearch: "",
+    activeRegex: "",
   };
 };
 
@@ -100,6 +116,9 @@ const filterDuplicates: (data: Data[], key: keyof Data) => Data[] = (
 const search: (data: Data[], keyword: string) => Data[] = (data, keyword) =>
   data.filter((el) => el.url.includes(keyword));
 
+const matchRegex: (data: Data[], pattern: RegExp) => Data[] = (data, pattern) =>
+  data.filter((el) => el.url.match(pattern));
+
 const dataFlow: (state: TableState, data?: Data[]) => Data[] = (
   state,
   data
@@ -110,12 +129,18 @@ const dataFlow: (state: TableState, data?: Data[]) => Data[] = (
     activeOrderIsAsc,
     activeDuplicateFilter,
     activeSearch,
+    activeRegex,
   } = state;
   let finalData = (data && data.length > 0 && data) || stateData;
 
   // search
   if (activeSearch) {
     finalData = search(finalData, activeSearch);
+  }
+
+  // match regex
+  if (activeRegex) {
+    finalData = matchRegex(finalData, activeRegex);
   }
 
   // order
@@ -199,12 +224,28 @@ export const tableDataReducer: React.Reducer<TableState, ReducerAction> = (
         data: dataFlow(searchState, action.payload.data),
       };
 
-    case RESET_ORDER:
-      // no duplicateFilter && no activeSearch
-      if (!state.activeDuplicateFilter && !state.activeSearch) {
-        return initState(action.payload.data);
+    case REGEX:
+      let regexState = state;
+
+      // reset search
+      if (!action.payload.pattern) {
+        regexState = {
+          ...regexState,
+          activeRegex: "",
+        };
+      } else {
+        regexState = {
+          ...regexState,
+          activeRegex: action.payload.pattern,
+        };
       }
 
+      return {
+        ...regexState,
+        data: dataFlow(regexState, action.payload.data),
+      };
+
+    case RESET_ORDER:
       const resetOrderState = {
         ...state,
         activeFilter: "" as "",

@@ -6,6 +6,7 @@ import {
   Search,
   FindDuplicates,
   Reset,
+  Regex,
 } from "./utils/TableDataTypes";
 import {
   initState,
@@ -16,6 +17,7 @@ import {
   SEARCH,
   FILTER_DUPLICATES,
   REFRESH_DATA,
+  REGEX,
 } from "./utils/tableReducers";
 
 export const useTableData: (originalData: Data[]) => TableData = (
@@ -52,6 +54,10 @@ export const useTableData: (originalData: Data[]) => TableData = (
     dispatch({ type: SEARCH, payload: { keyword, data: originalData } });
   };
 
+  const regex: Regex = (pattern) => {
+    dispatch({ type: REGEX, payload: { pattern, data: originalData } });
+  };
+
   const reset: Reset = () => {
     dispatch({ type: RESET_ORDER, payload: { data: originalData } });
   };
@@ -64,5 +70,6 @@ export const useTableData: (originalData: Data[]) => TableData = (
     reset,
     findDuplicates,
     search,
+    regex,
   };
 };
