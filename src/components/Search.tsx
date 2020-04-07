@@ -1,9 +1,10 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react'
+
 import { Search as SearchInterface } from '../hooks/utils/TableDataTypes';
 import { IconButton } from './IconButton';
+import { Icons } from './Icons';
 
 import './Search.scss';
-import { Icons } from './Icons';
 
 interface SearchProps {
   onSearch: SearchInterface;
