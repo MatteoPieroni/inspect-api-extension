@@ -1,0 +1,19 @@
+@import "../variables.scss";
+
+.button-link {
+  border: none;
+  padding: 0;
+  background: none;
+  color: $dark-text;
+
+  &:hover {
+    border: none;
+    background: none;
+    color: $dark-hover;
+    text-decoration: underline;
+  }
+}
+
+.advanced-filters-list {
+  margin-bottom: 0.5rem;
+}
