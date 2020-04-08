@@ -17,7 +17,7 @@ export const CallItem: React.FC<CallItemProps> = ({ item }) => {
     <div className="call">
       <div className="body">{url}</div>
       <div className="footer">
-        {rest && Object.values(rest).sort().map(value => <Badge key={value}>{value}</Badge>)}
+        {rest && Object.values(rest).sort().map(value => value ? <Badge key={value}>{value}</Badge> : null)}
         {status && <Badge variant={statusVariant} >{status}</Badge>}
       </div>
     </div>
