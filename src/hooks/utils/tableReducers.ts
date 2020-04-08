@@ -97,20 +97,25 @@ const filterDuplicates: (data: Data[], key: keyof Data) => Data[] = (
 ) => {
   const keyValues: string[] = data.map((element) => element[key]);
 
-  return data.filter((element, index) => {
+  let duplicatesArray: Data[] = [];
+
+  data.forEach((element, index) => {
+    // if the data is present in the rest of the array add it
     if (keyValues.indexOf(element[key], index + 1) > -1) {
-      return true;
+      return duplicatesArray.push(element);
     }
 
-    // for the last item compare with previous values
-    if (index === data.length - 1) {
-      if (keyValues.indexOf(element[key]) !== index) {
-        return true;
-      }
+    // if data is present already in the duplicate array add it
+    if (
+      duplicatesArray.find(
+        (duplicateElement) => duplicateElement[key] === element[key]
+      )
+    ) {
+      return duplicatesArray.push(element);
     }
-
-    return false;
   });
+
+  return duplicatesArray;
 };
 
 const search: (data: Data[], keyword: string) => Data[] = (data, keyword) =>
