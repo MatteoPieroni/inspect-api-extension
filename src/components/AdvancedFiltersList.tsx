@@ -1,7 +1,6 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 
 import { FindDuplicates, Regex } from '../hooks/utils/TableDataTypes'
-import { useToggle } from '../hooks/useToggle'
 import { AdvancedFilter } from './AdvancedFilter'
 
 import './AdvancedFiltersList.scss';
@@ -13,15 +12,17 @@ interface AdvancedFiltersListProps {
 
 export const AdvancedFiltersList: React.FC<AdvancedFiltersListProps> = ({ filterDuplicates, regex }) => {
   const divRef = useRef(null);
-  const { isExpanded, toggle } = useToggle(divRef);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <>
-      <button className="button-link" onClick={toggle}>Advanced filters {isExpanded ? '▲' : '▼'}</button>
-      <div className="advanced-filters-list" ref={divRef}>
-        <AdvancedFilter label="Show only insecure calls (http)" onChange={(value) => regex(value ? /^http:\/\//g : '')} />
-        <AdvancedFilter label="Show only duplicate calls (url)" onChange={(value) => filterDuplicates(value ? 'url' : undefined)} />
-      </div>
+      <button className="button-link" onClick={() => setIsExpanded(!isExpanded)}>Advanced filters {isExpanded ? '▲' : '▼'}</button>
+      {isExpanded && (
+        <div className="advanced-filters-list" ref={divRef}>
+          <AdvancedFilter label="Show only insecure calls (http)" onChange={(value) => regex(value ? /^http:\/\//g : '')} />
+          <AdvancedFilter label="Show only duplicate calls (url)" onChange={(value) => filterDuplicates(value ? 'url' : undefined)} />
+        </div>
+      )}
     </>
   )
 }
