@@ -13,7 +13,7 @@ function App() {
         <h1>Inspect api calls</h1>
       </header>
       <main>
-        {tableData && <CallsList data={tableData} isTable={false} />}
+        {tableData && <CallsList data={tableData} />}
         {/* {error} */}
       </main>
     </div>
