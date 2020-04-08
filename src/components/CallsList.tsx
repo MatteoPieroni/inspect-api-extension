@@ -6,6 +6,8 @@ import { useTableData } from '../hooks/useTableData';
 import { Table } from './Table';
 import List from './List';
 
+import './CallsList.scss';
+
 interface CallsListProps {
   data: Data[];
   isTable?: boolean;
@@ -16,7 +18,9 @@ export const CallsList: React.FC<CallsListProps> = ({ data, isTable = true }) =>
   const headers: (keyof Data)[] = headerKeys.filter((element, index) => element !== 'id' && headerKeys.indexOf(element) === index);
 
   return (
-    <div>
+    <div className="calls-list" style={{
+      width: window.innerWidth * .4
+    }}>
       <Controller
         onReset={reset}
         headers={headers}
