@@ -10,27 +10,27 @@ import './OrderController.scss'
 interface OrderControllerProps {
   headers: HeaderKeys;
   onChange: OrderByKey;
-  activeFilter: ActiveFilter;
+  activeOrder: ActiveFilter;
   handleReset: Reset;
 }
 
-export const OrderController: React.FC<OrderControllerProps> = ({ headers, onChange, activeFilter, handleReset }) => {
+export const OrderController: React.FC<OrderControllerProps> = ({ headers, onChange, activeOrder, handleReset }) => {
   const [orderIsAsc, setOrderIsAsc] = useState<boolean>(false);
 
   const handleClick = () => {
-    if (activeFilter) {
-      onChange(activeFilter, !orderIsAsc);
+    if (activeOrder) {
+      onChange(activeOrder, !orderIsAsc);
       setOrderIsAsc(!orderIsAsc);
     }
   }
 
   return (
     <div className="order-controller">
-      <select value={activeFilter} onChange={(e) => onChange(e.target.value as keyof Data, orderIsAsc)}>
+      <select value={activeOrder} onChange={(e) => onChange(e.target.value as keyof Data, orderIsAsc)}>
         <option value="" disabled>Order by</option>
         {headers.map(header => <option key={header} value={header}>{header}</option>)}
       </select>
-      {activeFilter && (
+      {activeOrder && (
         <IconButton
           icon={orderIsAsc ? <Icons.MoveUp /> : <Icons.MoveDown />}
           onClick={handleClick}
@@ -38,7 +38,7 @@ export const OrderController: React.FC<OrderControllerProps> = ({ headers, onCha
           className="order-icon"
         />
       )}
-      {activeFilter && <IconButton
+      {activeOrder && <IconButton
         icon={<Icons.Reset />}
         onClick={handleReset}
         action="Reset order"

@@ -12,7 +12,7 @@ interface CallsListProps {
 }
 
 export const CallsList: React.FC<CallsListProps> = ({ data }) => {
-  const { headerKeys, data: processedData, orderByKey, reset, activeFilter, ...rest } = useTableData(data);
+  const { headerKeys, data: processedData, orderByKey, reset, activeOrder, ...rest } = useTableData(data);
   const headers: (keyof Data)[] = headerKeys.filter((element, index) => element !== 'id' && headerKeys.indexOf(element) === index);
 
   return (
@@ -24,10 +24,10 @@ export const CallsList: React.FC<CallsListProps> = ({ data }) => {
         headers={headers}
         dataToDownload={processedData}
         orderByKey={orderByKey}
-        activeFilter={activeFilter}
+        activeOrder={activeOrder}
         {...rest}
       />
-      <List headers={headers} data={processedData} activeFilter={activeFilter} orderByKey={orderByKey} />
+      <List data={processedData} />
     </div>
   )
 }

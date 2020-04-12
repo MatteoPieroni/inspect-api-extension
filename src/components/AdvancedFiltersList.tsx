@@ -19,8 +19,9 @@ export const AdvancedFiltersList: React.FC<AdvancedFiltersListProps> = ({ filter
       <button className="button-link" onClick={() => setIsExpanded(!isExpanded)}>Advanced filters {isExpanded ? '▲' : '▼'}</button>
       {isExpanded && (
         <div className="advanced-filters-list" ref={divRef}>
-          <AdvancedFilter label="Show only insecure calls (http)" onChange={(value) => regex(value ? /^http:\/\//g : '')} />
-          <AdvancedFilter label="Show only duplicate calls (url)" onChange={(value) => filterDuplicates(value ? 'url' : undefined)} />
+          <AdvancedFilter label="Show only insecure calls (http)" onChange={(value) => regex(value ? /^http:\/\//g : '', 'insecure')} />
+          <AdvancedFilter label="Show error calls" onChange={(value) => regex(value ? /error/ : '', 'error', 'status')} />
+          <AdvancedFilter label="Show only duplicate calls (url)" onChange={(value) => filterDuplicates(value ? 'url' : undefined, 'url-duplicates')} />
         </div>
       )}
     </>

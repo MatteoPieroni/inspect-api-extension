@@ -15,10 +15,10 @@ import {
   ORDER,
   RESET_ORDER,
   SEARCH,
-  FILTER_DUPLICATES,
+  FILTER,
   REFRESH_DATA,
-  REGEX,
 } from "./utils/tableReducers";
+import { DUPLICATES, REGEX } from "./utils/filters";
 
 export const useTableData: (originalData: Data[]) => TableData = (
   originalData
@@ -28,7 +28,7 @@ export const useTableData: (originalData: Data[]) => TableData = (
     originalData,
     initState
   );
-  const { data, activeFilter } = state;
+  const { data, activeOrder } = state;
 
   useEffect(() => {
     dispatch({ type: REFRESH_DATA, payload: { data: originalData } });
@@ -46,26 +46,33 @@ export const useTableData: (originalData: Data[]) => TableData = (
     dispatch({ type: ORDER, payload: { key, isAsc } });
   };
 
-  const findDuplicates: FindDuplicates = (key) => {
-    dispatch({ type: FILTER_DUPLICATES, payload: { key, data: originalData } });
+  const findDuplicates: FindDuplicates = (key, identifier) => {
+    dispatch({
+      type: FILTER,
+      payload: { filter: DUPLICATES, key, data: originalData, identifier },
+    });
   };
 
   const search: Search = (keyword) => {
     dispatch({ type: SEARCH, payload: { keyword, data: originalData } });
   };
 
-  const regex: Regex = (pattern) => {
-    dispatch({ type: REGEX, payload: { pattern, data: originalData } });
+  const regex: Regex = (pattern, identifier, key) => {
+    dispatch({
+      type: FILTER,
+      payload: { filter: REGEX, pattern, key, identifier, data: originalData },
+    });
   };
 
   const reset: Reset = () => {
+    console.log(originalData);
     dispatch({ type: RESET_ORDER, payload: { data: originalData } });
   };
 
   return {
     headerKeys,
     data,
-    activeFilter,
+    activeOrder,
     orderByKey,
     reset,
     findDuplicates,

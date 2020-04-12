@@ -15,13 +15,13 @@ interface ControllerProps {
   findDuplicates: FindDuplicates;
   search: SearchInterface;
   dataToDownload?: Data[];
-  activeFilter: ActiveFilter;
+  activeOrder: ActiveFilter;
   orderByKey: OrderByKey;
   regex: Regex;
 }
 
 export const Controller: React.FC<ControllerProps> = ({
-  onReset, findDuplicates, headers, search, dataToDownload, activeFilter, orderByKey, regex,
+  onReset, findDuplicates, headers, search, dataToDownload, activeOrder, orderByKey, regex,
 }) => {
 
   return (
@@ -29,7 +29,7 @@ export const Controller: React.FC<ControllerProps> = ({
       <div className="left">
         <Search onSearch={search} />
         <AdvancedFiltersList filterDuplicates={findDuplicates} regex={regex} />
-        <OrderController headers={headers} activeFilter={activeFilter} onChange={orderByKey} handleReset={onReset} />
+        <OrderController headers={headers} activeOrder={activeOrder} onChange={orderByKey} handleReset={onReset} />
       </div>
       {dataToDownload && (
         <div className="right">

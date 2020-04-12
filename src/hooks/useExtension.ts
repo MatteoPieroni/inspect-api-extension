@@ -8,7 +8,7 @@ export const useExtension = () => {
   useEffect(() => {
     chrome.runtime.connect();
 
-    const getBackgroundData: (data: DataCollection) => void = data => {
+    const getBackgroundData: (data: DataCollection) => void = (data) => {
       try {
         setData(data);
       } catch (e) {
