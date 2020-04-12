@@ -15,5 +15,88 @@
   <body>
     <noscript>You need to enable JavaScript to run this extension.</noscript>
     <div id="root"></div>
+    <script>
+      if ("%NODE_ENV%" !== "production") {
+        window.chrome = {
+          runtime: {
+            connect: () => {
+              console.log("connected");
+              return null;
+            },
+            onMessage: {
+              addListener: (callback) => {
+                callback(
+                  JSON.parse(`[
+                    {
+                        "id": "4551",
+                        "url": "https://www.test.com",
+                        "status": "complete",
+                        "method": "GET",
+                        "duration": "0.90"
+                    },
+                    {
+                        "id": "4552",
+                        "url": "https://www.test.com",
+                        "status": "complete",
+                        "method": "GET",
+                        "duration": "0.06"
+                    },
+                    {
+                        "id": "4619",
+                        "url": "https://www.test.com/post",
+                        "status": "error",
+                        "method": "POST",
+                        "duration": "0.05"
+                    },
+                    {
+                        "id": "4697",
+                        "url": "https://www.test.com/login",
+                        "status": "complete",
+                        "method": "POST",
+                        "duration": "0.60"
+                    },
+                    {
+                        "id": "4704",
+                        "url": "https://www.test.com/pending",
+                        "status": "pending",
+                        "method": "POST",
+                        "duration": "0.09"
+                    },
+                    {
+                        "id": "4706",
+                        "url": "https://www.test.com",
+                        "status": "complete",
+                        "method": "GET",
+                        "duration": "0.07"
+                    },
+                    {
+                        "id": "4709",
+                        "url": "https://www.test.com",
+                        "status": "error",
+                        "method": "GET",
+                        "duration": "0.42"
+                    },
+                    {
+                        "id": "4722",
+                        "url": "https://www.test.com",
+                        "status": "complete",
+                        "method": "POST",
+                        "duration": "0.10"
+                    },
+                    {
+                        "id": "4794",
+                        "url": "http://www.test.com",
+                        "status": "complete",
+                        "method": "GET",
+                        "duration": "1.16"
+                    }
+                ]`)
+                );
+              },
+            },
+          },
+        };
+      }
+    </script>
   </body>
 </html>
