@@ -1,4 +1,4 @@
-{
+const manifest = {
   "manifest_version": 2,
 
   "name": "Inspect API calls",
@@ -10,8 +10,10 @@
     "default_title": "Open the popup"
   },
   "background": {
-    "scripts": ["app/background.js"]
+    "scripts": ["background.js"]
   },
   "icons": {},
   "permissions": ["webRequest", "webNavigation", "<all_urls>", "storage"]
 }
+
+module.exports = manifest;
