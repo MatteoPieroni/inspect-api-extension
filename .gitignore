@@ -9,7 +9,10 @@
 /coverage
 
 # production
-/build
+!build/
+
+build/*
+!build/icons/
 
 # misc
 .DS_Store
