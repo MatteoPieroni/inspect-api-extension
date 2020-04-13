@@ -22,7 +22,6 @@ type Listener = (data: StoreData) => void;
 
 export class Store {
   _store: StoreData;
-
   _listeners: Listener[];
 
   constructor() {
