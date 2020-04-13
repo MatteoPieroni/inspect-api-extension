@@ -1,15 +1,15 @@
-enum Statuses {
+export enum Statuses {
   "pending",
   "complete",
-  "error"
+  "error",
 }
 
-enum Methods {
+export enum Methods {
   "GET",
   "POST",
   "PUT",
   "PATCH",
-  "DELETE"
+  "DELETE",
 }
 
 export interface Data {
