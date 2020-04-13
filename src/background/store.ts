@@ -4,12 +4,12 @@ export interface StoreData {
   [id: string]: Entry;
 }
 
-type PartEntry = {
+export type PartEntry = {
   endTime: number;
   status?: keyof typeof Statuses;
 };
 
-type Entry = {
+export type Entry = {
   id: string;
   url: string;
   startTime: number;
@@ -21,8 +21,8 @@ type Entry = {
 type Listener = (data: StoreData) => void;
 
 export class Store {
-  _store: StoreData;
-  _listeners: Listener[];
+  private _store: StoreData;
+  private _listeners: Listener[];
 
   constructor() {
     this._store = {};
@@ -79,7 +79,5 @@ export class Store {
   reset(): void {
     this._store = {};
     this._listeners = [];
-
-    this.emit();
   }
 }
