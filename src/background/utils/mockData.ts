@@ -16,3 +16,7 @@ export const updatedEntry: Entry = {
   startTime: 123456789.0,
   endTime: 123456789.1,
 };
+
+export const fakeTab = {
+  id: 1234,
+} as chrome.tabs.Tab;
