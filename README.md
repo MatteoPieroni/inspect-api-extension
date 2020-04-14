@@ -6,5 +6,7 @@ This repo holds the code for the **Inspect API calls** Chrome Extension.
 
 - Typescript
 - React
+- Jest
+- @testing-library/react
 - Sass
 - Webpack
