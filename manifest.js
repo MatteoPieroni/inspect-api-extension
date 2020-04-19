@@ -16,7 +16,7 @@ const manifest = {
     "48": "icons/Icon48.png",
     "128": "icons/Icon128.png" 
   },
-  "permissions": ["webRequest", "webNavigation", "<all_urls>", "storage"]
+  "permissions": ["webRequest", "webNavigation", "<all_urls>"]
 }
 
 module.exports = manifest;
