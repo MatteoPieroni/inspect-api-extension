@@ -9,6 +9,7 @@
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
+    "postbuild": "rm extension.zip & zip extension.zip build/* --junk-paths",
     "test": "jest --watch"
   },
   "eslintConfig": {
