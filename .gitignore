@@ -12,7 +12,7 @@
 !build/
 
 build/*
-!build/icons/
+!build/*.png
 
 # misc
 .DS_Store
